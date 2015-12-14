@@ -1,0 +1,48 @@
+1.安装jailkit运行环境
+
+解压、编译、安装
+tar -zxvf jailkit-2.19.tar.gz
+cd jailkit-2.19
+./configure
+make
+make install
+
+2.修改jailkit初始化配置
+
+[]jk_lsh]是jailkit运行必不可少的配置，我们为实现权限最小化，不使用默认的[basicshell]配置，在[jk_lsh]的paths中新增/bin/bash
+[jk_lsh]
+comment = Jailkit limited shell
+paths = /usr/sbin/jk_lsh, /etc/jailkit/jk_lsh.ini,/bin/bash
+users = root
+groups = root
+includesections = uidbasics, logbasics
+
+本项目功能实现依赖python和ssh
+新增python配置
+[python]
+comment = the python interpreter and libraries
+paths = /usr/bin/python, /usr/bin/python2.7, /usr/lib/python2.7, /usr/lib64/python2.7, /usr/include/python2.7
+
+初始化脚本
+jk_init -v -j /opt/jail jk_lsh ssh python
+
+
+3.用户配置
+
+新建用户
+useradd fortress
+
+修改密码
+passwd fortress
+
+切换用户，生成密钥对
+su fortress
+ssh-keygen -t rsa
+
+将用户迁移至jail环境
+jk_jailuser -m -v -j /opt/jail/ -s /bin/bash fortress
+
+
+
+
+
