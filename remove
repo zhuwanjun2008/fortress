@@ -1,0 +1,10 @@
+#!/usr/bin/python
+#coding=utf-8
+
+#r在本项目的jail环境，不支持rm命令
+
+import os
+
+if os.path.exists("sshcommand"):
+    os.remove("sshcommand")
+    

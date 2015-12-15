@@ -1,0 +1,62 @@
+#!/usr/bin/python
+#coding=utf-8
+
+
+import sys
+import serverinfo
+import time
+import os
+import stat
+
+
+
+if __name__ == '__main__':
+    
+    sshpath = "/usr/local/connect"
+        
+    #检查用户输入是否正确，获取用户输入的服务器序号
+    if len(sys.argv) == 2:
+        remote_serverid = sys.argv[1]
+    else:
+        print "使用方法： \nssh 服务器序号\n"
+        print "服务器列表： \n" + serverinfo.getservername()
+        print("")
+        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")
+        print("")
+        print("使用过程中，若有问题，请联系zhuwanjun@linglongtech.com")
+        print("")        
+        sys.exit(1)
+
+
+    if serverinfo.isdst(remote_serverid):
+        
+        print("正在登录 %s ... "%(serverinfo.getserverinfo(remote_serverid,"name")))
+        time.sleep(2)
+        
+        #判断日志目录是否存在，若不存在，则新建
+        if(os.path.exists("logs")):
+            pass
+        else:
+            os.makedirs("logs")
+        
+        commandline = sshpath+ " " + serverinfo.getserverinfo(remote_serverid,"user") +"@"+ serverinfo.getserverinfo(remote_serverid,"ip") + " | tee -a ./logs/" + time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))+"-"+ serverinfo.getserverinfo(remote_serverid,"name") + ".log"
+        
+        if os.path.exists("sshcommand"):
+            os.remove("sshcommand")
+        
+        f=open('sshcommand','w')
+        f.write("#/bin/bash \n")
+        f.write(commandline)
+        f.close()
+        
+        os.chmod("sshcommand", stat.S_IREAD+stat.S_IXUSR)        
+        
+    else:
+        print "您输入了一个错误的服务器序号\n"
+        print "服务器列表： \n" + serverinfo.getservername()
+        print("")
+        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")
+        print("")
+        print("使用过程中，若有问题，请联系zhuwanjun@linglongtech.com")
+        print("")        
+        sys.exit(1)

@@ -1,0 +1,51 @@
+#!/usr/bin/python
+#coding=utf-8
+
+import sys
+import pexpect
+import ConfigParser
+
+import serverinfo
+
+
+#分发key
+def sshcopy(ssh_user,ssh_password,server_ip):
+    
+    commandline = "ssh-copy-id -i .ssh/id_rsa.pub %s@%s" % (ssh_user,server_ip)
+    child = pexpect.spawn(commandline)
+    #child.logfile = sys.stdout
+    
+    index = child.expect(['password:','continue connecting (yes/no)?',pexpect.EOF, pexpect.TIMEOUT])
+    if index == 0:
+        child.sendline(ssh_password)
+        child.interact()
+    elif index == 1:
+        child.sendline('yes')
+        child.expect(['password:'])
+        child.sendline(ssh_password)
+        child.interact()
+    elif index == 2:
+        print "子程序异常，退出!"
+        child.close()
+    elif index == 3:
+        print "连接超时"
+
+    
+if __name__ == '__main__':
+    
+    #配置文件读取
+    conf = ConfigParser.ConfigParser()
+    conf.read("serverlist") 
+    
+    #获取所有server
+    serverids = conf.get("server", "id").split(",")
+    
+    #遍历所有的ServerID
+    for serverid in serverids:
+            
+        #获取目标机器的用户名和密码
+        sshuser = conf.get(serverid, "user")
+        sshpasswd = conf.get(serverid, "password")            
+        
+        sshcopy(sshuser,sshpasswd,serverinfo.getserverinfo(serverid,"ip"))
+    

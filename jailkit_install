@@ -1,6 +1,6 @@
 1.安装jailkit运行环境
 
-解压、编译、安装
+解压、编译、安装(依赖gcc)
 tar -zxvf jailkit-2.19.tar.gz
 cd jailkit-2.19
 ./configure
@@ -8,6 +8,9 @@ make
 make install
 
 2.修改jailkit初始化配置
+
+配置文件地址
+vim /etc/jailkit/jk_init.ini
 
 []jk_lsh]是jailkit运行必不可少的配置，我们为实现权限最小化，不使用默认的[basicshell]配置，在[jk_lsh]的paths中新增/bin/bash
 [jk_lsh]
@@ -39,8 +42,16 @@ passwd fortress
 su fortress
 ssh-keygen -t rsa
 
-将用户迁移至jail环境
+将用户迁移至jail环境，将jail用户的工作环境设置为/bin/bash
 jk_jailuser -m -v -j /opt/jail/ -s /bin/bash fortress
+
+
+4.修改jail的ssh命令
+将ssh的可执行文件移动并更名
+mkdir -p /opt/jail/usr/local
+mv /opt/jail/bin/ssh /opt/jail/usr/local/connect
+
+
 
 
 

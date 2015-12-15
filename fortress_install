@@ -1,0 +1,8 @@
+1.新建账户
+利用ansible为其他的服务器生成密码
+python -c 'import crypt; print crypt.crypt("fortress", "fortress")'
+批量新增账户
+ansible running -m user -a "name=fortress password=foOBtuPjdaBzs home=/work/fortress" -s -K
+批量删除账户
+ansible running -m user -a "name=fortress state=absent remove=yes" -s -K
+

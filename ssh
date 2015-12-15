@@ -1,0 +1,16 @@
+#/bin/bash
+
+cd ~
+
+remove
+
+#传入主机名参数
+sshpy $@
+
+if [ -f "sshcommand" ]
+then
+./sshcommand
+fi
+
+remove
+

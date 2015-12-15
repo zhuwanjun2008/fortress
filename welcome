@@ -1,6 +1,23 @@
-欢迎您使用fortress
-登录服务器，请执行命令"./login.py"
-
-在使用过程中，若有任何疑问，请联系zhuwanjun
+#!/usr/bin/python
+#coding=utf-8
 
 
+import serverinfo
+
+
+print("")
+print("")
+print("***************************************************************")
+print("")
+print("欢迎使用fortress")
+print("登录服务器，请执行命令\"ssh 服务器序号\"")
+print("")
+print("服务器列表： \n" + serverinfo.getservername())
+print("")
+print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")
+print("")
+print("使用过程中，若有问题，请联系zhuwanjun@linglongtech.com")
+print("")
+print("***************************************************************")
+print("")
+print("")
