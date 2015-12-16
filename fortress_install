@@ -17,5 +17,9 @@ serverlise复制到jail的用户目录中
 新增一行：welcome
 
 
+注意文件夹权限问题
+
+chmod 755 `find /home/admin -type d`
+
 
 
