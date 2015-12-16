@@ -12,22 +12,25 @@ make install
 配置文件地址
 vim /etc/jailkit/jk_init.ini
 
-[]jk_lsh]是jailkit运行必不可少的配置，我们为实现权限最小化，不使用默认的[basicshell]配置，在[jk_lsh]的paths中新增/bin/bash
+基础依赖
+/bin/bash 基础shell操作
+python 运行环境
+tee 日志记录
+
 [jk_lsh]
 comment = Jailkit limited shell
-paths = /usr/sbin/jk_lsh, /etc/jailkit/jk_lsh.ini,/bin/bash
+paths = /usr/sbin/jk_lsh, /etc/jailkit/jk_lsh.ini,/bin/bash,tee
 users = root
 groups = root
-includesections = uidbasics, logbasics
+includesections = uidbasics, logbasics, python, ssh
 
-本项目功能实现依赖python和ssh
 新增python配置
 [python]
 comment = the python interpreter and libraries
 paths = /usr/bin/python, /usr/bin/python2.7, /usr/lib/python2.7, /usr/lib64/python2.7, /usr/include/python2.7
 
 初始化脚本
-jk_init -v -j /opt/jail jk_lsh ssh python
+jk_init -v -j /opt/jail jk_lsh
 
 
 3.用户配置

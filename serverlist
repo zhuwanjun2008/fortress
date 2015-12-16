@@ -1,0 +1,20 @@
+[server]
+id = 1,2,3
+
+[1]
+name = server1
+ip = server1_ip
+user = fortress
+password = fortress
+
+[2]
+name = server2
+ip = server2_ip
+user = fortress
+password = fortress
+
+[3]
+name = server3
+ip = server3_ip
+user = fortress
+password = fortress
