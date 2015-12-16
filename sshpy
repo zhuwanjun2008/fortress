@@ -18,12 +18,13 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         remote_serverid = sys.argv[1]
     else:
-        print "使用方法： \nssh 服务器序号\n"
-        print "服务器列表： \n" + serverinfo.getservername()
+        print("服务器列表： \n" + serverinfo.getservername())
         print("")
-        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")
+        print("登录服务器，请执行命令\"ssh 服务器序号\"")
         print("")
         print("使用过程中，若有问题，请联系zhuwanjun@linglongtech.com")
+        print("")
+        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")        
         print("")        
         sys.exit(1)
 
@@ -52,11 +53,13 @@ if __name__ == '__main__':
         os.chmod("sshcommand", stat.S_IREAD+stat.S_IXUSR)        
         
     else:
-        print "您输入了一个错误的服务器序号\n"
-        print "服务器列表： \n" + serverinfo.getservername()
+        print("服务器序号错误\n")
+        print("服务器列表： \n" + serverinfo.getservername())
         print("")
-        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")
+        print("登录服务器，请执行命令\"ssh 服务器序号\"")
         print("")
         print("使用过程中，若有问题，请联系zhuwanjun@linglongtech.com")
+        print("")
+        print("登录目标服务器后，执行部分语句时出现\"TERM environment variable not set.\"，请执行\"export TERM=xterm\"")        
         print("")        
         sys.exit(1)
