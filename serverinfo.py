@@ -12,20 +12,13 @@ def getserverinfo(serverid,typetag):
 
     servername = conf.get(serverid, "name")
     serverip = conf.get(serverid, "ip")
-    serveruser = conf.get(serverid, "user")
-    serverpassword = conf.get(serverid, "password")
     
     if typetag == "name":
         return servername
     elif typetag == "ip":
         return serverip
-    elif typetag == "user":
-        return serveruser
-    elif typetag == "password":
-        return serverpassword
-    
     else:
-        return (servername,serverip,serveruser,serverpassword)
+        return (servername,serverip)
     
 
 #返回服务器列表

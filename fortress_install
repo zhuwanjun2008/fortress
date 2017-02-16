@@ -7,6 +7,8 @@ ansible running -m user -a "name=fortress password=加密后密码 home=/work/fo
 ansible running -m user -a "name=fortress state=absent remove=yes" -s -K
 
 
+可以不使用ansible分发公钥，直接使用文件的方式分发
+
 
 使用ssh_copy_key批量将密钥分发到目标服务器上
 
@@ -19,7 +21,9 @@ serverlise复制到jail的用户目录中
 
 注意文件夹权限问题
 
-chmod 755 `find /home/admin -type d`
+chmod 755 `find /work/admin -type d`
+
+chmod 644 `find /work/admin -type f`
 
 
 
